@@ -19,7 +19,7 @@ function clearForm() {
 let windowText = "";
 function submitForm() {
     windowText = ("<html>\n<head>\n<title>Weekly Meal Plan</title>\n<head>\n<body>\n");
-    windowText += ("<b>Name:</b> " + userName + "<br><br>");
+    windowText += ("<b>Name:</b> " + userName + "<br><b>Email:</b> "+ email + "<br><b>Goal:</b> "+ userGoal + "<br><br>");
     windowText += ("<b>Monday</b><br>Breakfast:<em> " + mon[0] + ". </em>Snack:<em> " + mon[1] + ". </em>Lunch:<em> " + mon[2] + ". </em>Snack:<em> " + mon[3] + ". </em>Dinner:<em> " + mon[4] + "</em><br><br>");
     windowText += ("<b>Tuesday</b><br>Breakfast:<em> " + tue[0] + ". </em>Snack:<em> " + tue[1] + ". </em>Lunch:<em> " + tue[2] + ". </em>Snack:<em> " + tue[3] + ". </em>Dinner:<em> " + tue[4] + "</em><br><br>");
     windowText += ("<b>Wednesday</b><br>Breakfast:<em> " + wed[0] + ". </em>Snack:<em> " + wed[1] + ". </em>Lunch:<em> " + wed[2] + ". </em>Snack:<em> " + wed[3] + ". </em>Dinner:<em> " + wed[4] + "</em><br><br>");
@@ -132,10 +132,17 @@ document.getElementById("submitPlan").addEventListener("click", function(e) {
     }
 })
 // Download button event listener
-document.getElementById("downloadPlan").addEventListener("click", function() {
-    recordPlan();
-    console.log("Submit Started");
-    downloadForm();
+document.getElementById("downloadPlan").addEventListener("click", function(e) {
+    let emailInput = document.getElementById("email").value;
+    e.preventDefault();
+    emailField.setCustomValidity("");
+    let validEmail = emailValidation((emailInput));
+    emailField.reportValidity();
+    if (validEmail === true) {
+        recordPlan();
+        console.log("Submit Started");
+        downloadForm();
+    }
 })
 // Print button event listener
 inputButtons = document.getElementById("buttonTray")
